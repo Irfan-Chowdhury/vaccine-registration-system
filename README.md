@@ -5,3 +5,8 @@
 </div>
 
 
+### Packages 
+- #### [Artisan View](https://github.com/svenluijten/artisan-view)
+- #### [laravel Pint](https://github.com/laravel/pint)
+
+
