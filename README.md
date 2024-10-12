@@ -28,6 +28,8 @@ composer update
 - You have to setup database related credentials properly in .env
 - You have to setup mail related credentials properly.
 - You have to setup QUEUE_CONNECTION=database to run Queue for sending mail
+- Set APP_TIMEZONE=Asia/Dhaka
+
 
 ### Generate APP_KEY
 ```bash
