@@ -19,7 +19,7 @@ Route::get('/', function () {
 });
 
 Route::get('/registration', [VaccineRegistrationController::class, 'create'])->name('registration');
-Route::post('/registration', [VaccineRegistrationController::class, 'store'])->name('store');
+Route::post('/registration', [VaccineRegistrationController::class, 'store'])->name('registration.store');
 
 
 

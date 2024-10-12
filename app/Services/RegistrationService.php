@@ -2,42 +2,57 @@
 
 namespace App\Services;
 
-use App\Contracts\RegistrationContract;
-use App\Contracts\UserContract;
-use App\Contracts\VaccineCenterContract;
 use App\Jobs\SendOTPEmailJob;
 use App\Jobs\SendRegSuccessfulEmailJob;
 use App\Models\User;
 use App\Models\VaccinationSchedule;
 use App\Models\VaccineCenter;
-use App\Traits\DayCheckTrait;
-use App\Traits\MessageTrait;
-use DateTime;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Validator;
 
 class RegistrationService
 {
-
     public function getAllVaccineCenterData(): Collection
     {
         return VaccineCenter::select('id', 'name', 'address', 'daily_limit')->get();
     }
 
-    protected function getScheduleDate(int $vaccineCenterId) : string | null
+    public function getNextAvailableDate(string $lastScheduleDate)
     {
-        $vaccinationSchedules = VaccinationSchedule::select('scheduled_date','users_count')->where('vaccine_center_id', $vaccineCenterId)->get();
+        $date = Carbon::parse($lastScheduleDate);
+        $nextDate = $date->addDay()->toDateString();
+
+        if ($date->isFriday() || $date->isSaturday()) {
+            // Move to the next Sunday
+            $nextDate = $date->next(Carbon::SUNDAY)->toDateString();
+        }
+
+        return $nextDate;
+    }
+
+    public function getScheduleDate(int $vaccineCenterId): string
+    {
+        $vaccinationSchedules = VaccinationSchedule::select('scheduled_date', 'users_count')->where('vaccine_center_id', $vaccineCenterId);
 
         $singleVaccineCenter = VaccineCenter::find($vaccineCenterId);
 
-        foreach ($vaccinationSchedules as $item) {
-            if($item->users_count < $singleVaccineCenter->daily_limit) {
-                return $item->scheduled_date;
+        $scheduledDate = null;
+        foreach ($vaccinationSchedules->get() as $item) {
+            if ($item->users_count < $singleVaccineCenter->daily_limit) {
+                $scheduledDate = $item->scheduled_date;
+                break;
             }
         }
 
-        return null;
+        if (! $scheduledDate) {
+            $lastVaccinationSchedule = $vaccinationSchedules->latest()->first();
+            $lastScheduledDate = $lastVaccinationSchedule->scheduled_date;
+
+            $scheduledDate = self::getNextAvailableDate($lastScheduledDate);
+        }
+
+        return $scheduledDate;
     }
 
     public function registrationProcess(object $request)
@@ -45,7 +60,7 @@ class RegistrationService
         $data = $request->validated();
 
         $data['scheduled_date'] = $this->getScheduleDate($request->vaccine_center_id);
-        $data['status'] =  'Scheduled';
+        $data['vaccine_status'] = 'Scheduled';
 
         User::create($data);
 
@@ -55,12 +70,10 @@ class RegistrationService
                 'scheduled_date' => $data['scheduled_date'],
             ],
             [
-                'users_count' => DB::raw('users_count + 1')
+                'users_count' => DB::raw('users_count + 1'),
             ]
         );
     }
-
-
 
     // use MessageTrait;
     // use DayCheckTrait;

@@ -14,7 +14,13 @@
 uses(
     Tests\TestCase::class,
     // Illuminate\Foundation\Testing\RefreshDatabase::class,
-)->in('Feature');
+)->in('Feature','Unit');
+
+
+// uses(
+//     Tests\TestCase::class,
+// )->in('Unit');
+
 
 /*
 |--------------------------------------------------------------------------
@@ -42,7 +48,16 @@ expect()->extend('toBeOne', function () {
 |
 */
 
-function something()
+
+function userData():array
 {
-    // ..
+    return [
+        'name' => 'Irfan',
+        'gender' => 'male',
+        'email' => 'irfanchow@gmail.com',
+        'date_of_birth' => '1995-08-26',
+        'nid' => '20898241012908',
+        'address' => 'Chittagong',
+        'vaccine_center_id' => 1,
+    ];
 }
