@@ -25,11 +25,26 @@ class RegistrationService
         return VaccineCenter::select('id', 'name', 'address', 'daily_limit')->get();
     }
 
+    protected function getScheduleDate(int $vaccineCenterId) : string | null
+    {
+        $vaccinationSchedules = VaccinationSchedule::select('scheduled_date','users_count')->where('vaccine_center_id', $vaccineCenterId)->get();
+
+        $singleVaccineCenter = VaccineCenter::find($vaccineCenterId);
+
+        foreach ($vaccinationSchedules as $item) {
+            if($item->users_count < $singleVaccineCenter->daily_limit) {
+                return $item->scheduled_date;
+            }
+        }
+
+        return null;
+    }
+
     public function registrationProcess(object $request)
     {
         $data = $request->validated();
 
-        $data['scheduled_date'] = '2024-05-22';
+        $data['scheduled_date'] = $this->getScheduleDate($request->vaccine_center_id);
         $data['status'] =  'Scheduled';
 
         User::create($data);
