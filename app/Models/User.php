@@ -28,7 +28,6 @@ class User extends Authenticatable
         'vaccine_status',
         'vaccine_center_id',
         'scheduled_date',
-        'password',
     ];
 
     /**
