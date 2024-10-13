@@ -14,13 +14,13 @@ class SearchService
             ->where('nid', $nid)->first();
     }
 
-    public function getVaccineStatus(bool $isExitstsData, ?string $scheduledDate): string
+    public function getVaccineStatus(bool $isExitstsData, string|null $scheduledDate): string
     {
         if (! $isExitstsData) {
             return 'Not registered';
         }
 
-        $scheduledDate = Carbon::parse($scheduledDate);
+        $scheduledDate = $scheduledDate ? Carbon::parse($scheduledDate) : null;
         $currentDate = Carbon::now();
 
         if ($isExitstsData && ! $scheduledDate) {

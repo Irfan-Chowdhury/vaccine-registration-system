@@ -62,8 +62,7 @@ Just run the command
 php artisan test
 ```
 
-<img src="https://snipboard.io/PhzIBq.jpg">
-
+<img src="https://snipboard.io/s5wdeX.jpg">
 
 
 ### What I have done

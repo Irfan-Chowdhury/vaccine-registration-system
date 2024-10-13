@@ -9,21 +9,22 @@ beforeEach(function () {
 
 
 it('return object data', function () {
-    // $this->withoutExceptionHandling();
     $scheduleData = $this->registrationService->getAllVaccineCenterData();
     expect($scheduleData)->toBeObject();
 });
 
-it('return date', function () {
+it('return string date', function () {
     $scheduleData = $this->registrationService->getScheduleDate(1);
     expect($scheduleData)->toBeString();
 });
-
-
-// it('Display Schedule Data', function () {
-//     $scheduleData = $this->registrationService->getNextAvailableDate('2024-10-09');
-//     dd($scheduleData);
-// });
+it('return null', function () {
+    $scheduleData = $this->registrationService->getScheduleDate(1234234);
+    expect($scheduleData)->toBeNull();
+});
+test('Expect today if not today is Friday or Saturday', function () {
+    $date = $this->registrationService->getScheduleDate(1);
+    expect($date)->toBe(date('Y-m-d'));
+});
 
 it('Extend next date', function () {
     $scheduleData = $this->registrationService->getNextAvailableDate('2024-10-09'); //Wednesday
@@ -34,6 +35,10 @@ it('Skip Friday and Saturday and expect sunday', function () {
     $scheduleData = $this->registrationService->getNextAvailableDate('2024-10-10'); //Thursday
     expect($scheduleData)->toBe('2024-10-13'); //Sunday
 });
+
+
+
+
 
 
 

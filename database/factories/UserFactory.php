@@ -27,7 +27,6 @@ class UserFactory extends Factory
     public function definition(): array
     {
         $genders = ['male', 'female', 'other'];
-        $vaccineStatus = ['Scheduled', 'Not scheduled', 'Vaccinated'];
         $getScheduledDate = self::getScheduledDate();
         return [
                 'name' => fake()->name(),
@@ -51,7 +50,7 @@ class UserFactory extends Factory
         $endDate = strtotime('-18 years');
 
         $randomTimestamp = rand($startDate, $endDate);
-        
+
         return date('Y-m-d', $randomTimestamp);
     }
 

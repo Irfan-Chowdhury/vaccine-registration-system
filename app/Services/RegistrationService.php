@@ -29,7 +29,7 @@ class RegistrationService
         return $nextDate;
     }
 
-    public function getScheduleDate(int $vaccineCenterId): string
+    public function getScheduleDate(int $vaccineCenterId): string|null
     {
         $vaccinationSchedules = VaccinationSchedule::select('scheduled_date', 'users_count')->where('vaccine_center_id', $vaccineCenterId);
 
@@ -43,10 +43,12 @@ class RegistrationService
             }
         }
 
-        if (! $scheduledDate) {
+        if (!$scheduledDate) {
             $lastVaccinationSchedule = $vaccinationSchedules->latest()->first();
+            if(!$lastVaccinationSchedule) {
+                return null;
+            }
             $lastScheduledDate = $lastVaccinationSchedule->scheduled_date;
-
             $scheduledDate = self::getNextAvailableDate($lastScheduledDate);
         }
 
@@ -55,8 +57,6 @@ class RegistrationService
 
     public function registrationProcess(object $request)
     {
-        date_default_timezone_set(env('APP_TIMEZONE'));
-
         $data = $request->validated();
 
         $data['scheduled_date'] = $this->getScheduleDate($request->vaccine_center_id);
