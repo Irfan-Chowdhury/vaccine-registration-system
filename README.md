@@ -11,11 +11,6 @@
 
 ## How to run this project
 
-### Update Your Composer 
-```bash
-composer update
-```
-
 ### ENV Setup 
 - Please create `.env` file and copy-paste data from the `.env.example` file.
 - You have to setup database related credentials properly in .env
@@ -23,6 +18,11 @@ composer update
 - You have to setup QUEUE_CONNECTION=database to run Queue for sending mail
 - Set APP_TIMEZONE=Asia/Dhaka
 
+
+### Update Your Composer 
+```bash
+composer update
+```
 
 ### Generate APP_KEY
 ```bash
@@ -36,13 +36,7 @@ php artisan key:generate
 php artisan migrate
 ```
 
-### Queue Table
-```bash
-php artisan queue:table
-```
-
 ### Seeder
-
 ```bash
 php artisan db:seed
 ```
@@ -50,6 +44,11 @@ php artisan db:seed
 ### Run Project 
 ```bash
 php artisan serve
+```
+
+### Run Queue 
+```bash
+php artisan queue:work
 ```
 
 ### To Test CORN JOB 
