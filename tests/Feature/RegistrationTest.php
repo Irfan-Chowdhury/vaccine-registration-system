@@ -31,12 +31,6 @@ it('requires the name', function () {
         ->assertInvalid(['name' => 'required']);
 });
 
-//store
-// test('User Store', function () {
-//     // $this->withoutExceptionHandling();
-//     $this->post(route('registration.store'), userData())
-//         ->assertStatus(200);
-// });
 
 
 

@@ -12,17 +12,13 @@ it('return object data', function () {
     // $this->withoutExceptionHandling();
     $scheduleData = $this->registrationService->getAllVaccineCenterData();
     expect($scheduleData)->toBeObject();
-})->skip();
+});
 
 it('return date', function () {
     $scheduleData = $this->registrationService->getScheduleDate(1);
     expect($scheduleData)->toBeString();
-})->skip();
+});
 
-it('return date null', function () {
-    $scheduleData = $this->registrationService->getScheduleDate(199);
-    expect($scheduleData)->toBeNull();
-})->skip();
 
 // it('Display Schedule Data', function () {
 //     $scheduleData = $this->registrationService->getNextAvailableDate('2024-10-09');

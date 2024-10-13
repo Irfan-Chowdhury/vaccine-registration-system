@@ -57,9 +57,14 @@ php artisan serve
 php artisan reminder:send
 ```
 
-
-
 ## Test Case Result 
+Just run the command
+```bash
+php artisan test
+```
+
+<img src="https://snipboard.io/PhzIBq.jpg">
+
 
 
 ### What I have done
@@ -119,6 +124,41 @@ If an additional requirement to send `SMS notifications` along with database not
 - #### [Artisan View](https://github.com/svenluijten/artisan-view)
 - #### [Laravel Pint](https://github.com/laravel/pint)
 - #### [PEST Framework](https://pestphp.com)
+
+
+### Visit Page
+
+- Home Page : http://127.0.0.1:8000
+
+<img src="https://snipboard.io/GkH2eW.jpg">
+
+<br>
+
+- Vaccine Registration Form : http://127.0.0.1:8000/registration
+
+<img src="https://snipboard.io/PjQUwC.jpg">
+
+<br>
+
+- Vaccine Center List : http://127.0.0.1:8000/vaccine-center-list
+
+<img src="https://snipboard.io/hT7SDN.jpg">
+
+<br>
+
+- Vaccine Registration Status : http://127.0.0.1:8000/search
+
+<img src="https://snipboard.io/Zk9Wbd.jpg">
+
+<br>
+
+<img src="https://snipboard.io/M8oPjO.jpg">
+
+<br>
+
+- All Users : http://127.0.0.1:8000/all-users
+
+<img src="https://snipboard.io/OxHjEb.jpg">
 
 
 ### Reference
