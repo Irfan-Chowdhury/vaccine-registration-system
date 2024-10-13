@@ -11,6 +11,7 @@ use App\Services\VaccinationScheduleService;
 use App\Traits\MessageTrait;
 use Carbon\Carbon;
 use Exception;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 
 class VaccineRegistrationController extends Controller
@@ -21,7 +22,9 @@ class VaccineRegistrationController extends Controller
     {
         $vaccinationScheduleService->schedules();
 
-        $vaccineCenters = $registrationService->getAllVaccineCenterData();
+        $vaccineCenters = Cache::remember('vaccineCenters', 3600, function () use($registrationService) {
+            return $registrationService->getAllVaccineCenterData();
+        });
 
         return view('pages.registration.create', compact('vaccineCenters'));
     }

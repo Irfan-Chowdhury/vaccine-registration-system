@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('vaccination_schedules', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('vaccine_center_id');
-            $table->date('scheduled_date');
+            $table->foreignId('vaccine_center_id')->index();
+            $table->date('scheduled_date')->index();
             $table->integer('users_count')->default(0);
             $table->timestamps();
 
@@ -29,6 +29,8 @@ return new class extends Migration
     {
         Schema::table('vaccination_schedules', function (Blueprint $table) {
             $table->dropForeign('vaccination_schedules_vaccine_center_id_foreign');
+            $table->dropIndex(['vaccine_center_id']);
+            $table->dropIndex(['scheduled_date']);
             $table->dropIfExists();
         });
     }

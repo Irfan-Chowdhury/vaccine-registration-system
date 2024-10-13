@@ -23,7 +23,7 @@ return new class extends Migration
             $table->enum('vaccine_status', ['Not registered', 'Not scheduled', 'Scheduled', 'Vaccinated'])
                     ->default('Not registered');
             $table->foreignId('vaccine_center_id');
-            $table->date('scheduled_date')->nullable();
+            $table->date('scheduled_date')->index()->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password')->nullable();
             $table->rememberToken();
@@ -41,6 +41,7 @@ return new class extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->dropForeign('users_vaccine_center_id_foreign');
+            $table->dropIndex(['scheduled_date']);
             $table->dropIfExists();
         });
     }
