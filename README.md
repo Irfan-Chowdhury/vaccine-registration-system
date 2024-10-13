@@ -118,11 +118,6 @@ If an additional requirement to send `SMS notifications` along with database not
     - Use a sandbox mode (like Twilio’s test environment) to test SMS sending before going live.
     - Monitor for any rate limits imposed by the SMS gateway provider to avoid being blocked.
 
-### Packages used in application
-- #### [Artisan View](https://github.com/svenluijten/artisan-view)
-- #### [Laravel Pint](https://github.com/laravel/pint)
-- #### [PEST Framework](https://pestphp.com)
-
 
 ### Visit Page
 
@@ -157,6 +152,12 @@ If an additional requirement to send `SMS notifications` along with database not
 - All Users : http://127.0.0.1:8000/all-users
 
 <img src="https://snipboard.io/OxHjEb.jpg">
+
+
+### Packages used in application
+- #### [Artisan View](https://github.com/svenluijten/artisan-view)
+- #### [Laravel Pint](https://github.com/laravel/pint)
+- #### [PEST Framework](https://pestphp.com)
 
 
 ### Reference
