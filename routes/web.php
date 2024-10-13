@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\SearchController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\VaccineCenterController;
 use App\Http\Controllers\VaccineRegistrationController;
 use Illuminate\Support\Facades\Route;
@@ -30,10 +31,4 @@ Route::get('/search', [SearchController::class, 'searchPage'])->name('searchPage
 Route::post('/search', [SearchController::class, 'searchProcess'])->name('searchProcess');
 
 
-// Route::group(['prefix' => 'vaccine-registration'], function () {
-//     Route::get('/', [VaccineRegistrationController::class, 'userIdentificationPage'])->name('vaccine-registration.userIdentificationPage');
-//     Route::post('/user-identification-proess', [VaccineRegistrationController::class, 'userIdentificationProcess'])->name('vaccine-registration.userIdentificationProcess');
-//     Route::post('/user-information', [VaccineRegistrationController::class, 'userInformationPage'])->name('vaccine-registration.userInformationPage');
-//     Route::post('/confirmation', [VaccineRegistrationController::class, 'confirmationPage'])->name('vaccine-registration.confirmationPage');
-//     Route::post('/confirmation-process', [VaccineRegistrationController::class, 'confirmationProcess'])->name('vaccine-registration.confirmationProcess');
-// });
+Route::get('/all-users', [UserController::class, 'index'])->name('users.index');
