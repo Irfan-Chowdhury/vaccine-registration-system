@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\SearchController;
 use App\Http\Controllers\VaccineCenterController;
 use App\Http\Controllers\VaccineRegistrationController;
 use Illuminate\Support\Facades\Route;
@@ -25,6 +26,8 @@ Route::post('/registration', [VaccineRegistrationController::class, 'store'])->n
 
 Route::get('/vaccine-center-list', [VaccineCenterController::class, 'index'])->name('vaccine-center-list');
 
+Route::get('/search', [SearchController::class, 'searchPage'])->name('searchPage');
+Route::post('/search', [SearchController::class, 'searchProcess'])->name('searchProcess');
 
 
 // Route::group(['prefix' => 'vaccine-registration'], function () {
