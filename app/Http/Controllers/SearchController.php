@@ -16,7 +16,11 @@ class SearchController extends Controller
     {
         $userData = $searchService->show($request->nid);
 
-        $vaccineStatus = $searchService->getVaccineStatus($userData);
+        $scheduledDate = isset($userData) ? $userData->scheduled_date : null;
+
+        $isExitstsData = isset($userData) ? true : false;
+
+        $vaccineStatus = $searchService->getVaccineStatus($isExitstsData, $scheduledDate);
 
         return view('pages.search', compact('userData','vaccineStatus'));
     }

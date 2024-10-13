@@ -24,10 +24,10 @@ it('return date null', function () {
     expect($scheduleData)->toBeNull();
 })->skip();
 
-it('Display Schedule Data', function () {
-    $scheduleData = $this->registrationService->getNextAvailableDate('2024-10-09');
-    dd($scheduleData);
-});
+// it('Display Schedule Data', function () {
+//     $scheduleData = $this->registrationService->getNextAvailableDate('2024-10-09');
+//     dd($scheduleData);
+// });
 
 it('Extend next date', function () {
     $scheduleData = $this->registrationService->getNextAvailableDate('2024-10-09'); //Wednesday

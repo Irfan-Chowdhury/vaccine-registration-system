@@ -2,43 +2,67 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
+use App\Services\RegistrationService;
+use App\Services\SearchService;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
-/**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
- */
 class UserFactory extends Factory
 {
-    /**
-     * The current password being used by the factory.
-     */
-    protected static ?string $password;
+    protected $model = User::class;
+    protected RegistrationService $registrationService;
+    protected SearchService $searchService;
 
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
+    public function withServices(RegistrationService $registrationService, SearchService $searchService): self
+    {
+        $this->registrationService = $registrationService;
+        $this->searchService = $searchService;
+
+        return $this;
+    }
+
     public function definition(): array
     {
+        $genders = ['male', 'female', 'other'];
+        $vaccineStatus = ['Scheduled', 'Not scheduled', 'Vaccinated'];
+        $getScheduledDate = self::getScheduledDate();
         return [
-            'name' => fake()->name(),
-            'email' => fake()->unique()->safeEmail(),
-            'email_verified_at' => now(),
-            'password' => static::$password ??= Hash::make('password'),
-            'remember_token' => Str::random(10),
+                'name' => fake()->name(),
+                'gender' => $genders[array_rand($genders)],
+                'email' => fake()->unique()->safeEmail(),
+                'date_of_birth' => $this->getDateOfBirth(),
+                'nid' => fake()->numberBetween($min = 1000000000, $max = 9000000000),
+                'address' => fake()->address,
+                'phone' => '8801' . str_pad(rand(0, 999999), 9, '0', STR_PAD_LEFT),
+                'vaccine_status' => $this->searchService->getVaccineStatus(true,$getScheduledDate),
+                'vaccine_center_id' => fake()->numberBetween($min = 1, $max = 10),
+                'scheduled_date' => $getScheduledDate,
+                'created_at' => now(),
+                'updated_at' => now(),
         ];
     }
 
-    /**
-     * Indicate that the model's email address should be unverified.
-     */
-    public function unverified(): static
+    protected function getDateOfBirth()
     {
-        return $this->state(fn (array $attributes) => [
-            'email_verified_at' => null,
-        ]);
+        $startDate = strtotime('-80 years');
+        $endDate = strtotime('-18 years');
+
+        $randomTimestamp = rand($startDate, $endDate);
+        
+        return date('Y-m-d', $randomTimestamp);
     }
+
+    public function getScheduledDate(): string
+    {
+        $date =  Carbon::today()
+            ->addDays(rand(-15, 30))
+            ->format('Y-m-d');
+
+        return $this->registrationService->getNextAvailableDate($date);
+    }
+
+
 }

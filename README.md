@@ -29,16 +29,16 @@ composer update
 php artisan key:generate
 ```
 
-### Queue Table
-```bash
-php artisan queue:table
-```
-
 ### Migrate 
 <h5>Just run this command</h5>
 
 ```bash
 php artisan migrate
+```
+
+### Queue Table
+```bash
+php artisan queue:table
 ```
 
 ### Seeder
@@ -52,16 +52,6 @@ php artisan db:seed
 php artisan serve
 ```
 
-### Runnig Queue before send email 
-```bash
-php artisan queue:work
-```
-
-<!-- ### Alternatively, you may run the queue:listen command.
-```bash
-php artisan queue:listen
-``` -->
-
 ### To Test CORN JOB 
 ```bash
 php artisan reminder:send
@@ -69,12 +59,10 @@ php artisan reminder:send
 
 
 
-
 ## Test Case Result 
 
 
 ### What I have done
-
 - User can registration for Covid Vaccine.
 - User can check registration status
 - You (Reviewer) can see all vaccine center list
