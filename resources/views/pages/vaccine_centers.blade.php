@@ -19,9 +19,9 @@
                     @forelse ($vaccineCenters as $key => $item)
                         <tr>
                             <th scope="row">{{$key+1}}</th>
-                            <td>{{$item->center_name}}</td>
+                            <td>{{$item->name}}</td>
                             <td>{{$item->address}}</td>
-                            <td>{{$item->single_day_limit}}</td>
+                            <td>{{$item->daily_limit}}</td>
                         </tr>
                     @empty
                         <tr>

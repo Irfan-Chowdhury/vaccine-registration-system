@@ -48,7 +48,7 @@
 
                         <div class="col-md-6 mb-3">
                             <label for="exampleFormControlInput1" class="form-label">Mobile</label>
-                            <input type="number"  name="mobile" class="form-control" placeholder="0182-XXXX-XXX">
+                            <input type="number"  name="phone" class="form-control" placeholder="0182-XXXX-XXX">
                         </div>
 
                         <div class="col-md-6 mb-3">

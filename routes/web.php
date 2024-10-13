@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\VaccineCenterController;
 use App\Http\Controllers\VaccineRegistrationController;
 use Illuminate\Support\Facades\Route;
 
@@ -20,6 +21,9 @@ Route::get('/', function () {
 
 Route::get('/registration', [VaccineRegistrationController::class, 'create'])->name('registration');
 Route::post('/registration', [VaccineRegistrationController::class, 'store'])->name('registration.store');
+
+
+Route::get('/vaccine-center-list', [VaccineCenterController::class, 'index'])->name('vaccine-center-list');
 
 
 

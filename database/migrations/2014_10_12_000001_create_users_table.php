@@ -19,7 +19,7 @@ return new class extends Migration
             $table->date('date_of_birth');
             $table->string('nid')->unique();
             $table->text('address');
-            $table->string('image')->nullable();
+            $table->string('phone');
             $table->enum('vaccine_status', ['Not registered', 'Not scheduled', 'Scheduled', 'Vaccinated'])
                     ->default('Not registered');
             $table->foreignId('vaccine_center_id');

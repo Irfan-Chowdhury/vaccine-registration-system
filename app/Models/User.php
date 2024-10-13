@@ -18,7 +18,7 @@ class User extends Authenticatable
         'date_of_birth',
         'nid',
         'address',
-        'image',
+        'phone',
         'vaccine_status',
         'vaccine_center_id',
         'scheduled_date',

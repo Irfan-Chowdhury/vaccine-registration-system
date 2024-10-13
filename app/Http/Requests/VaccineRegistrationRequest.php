@@ -18,6 +18,7 @@ class VaccineRegistrationRequest extends FormRequest
         return [
             'name' => 'required|string',
             'email' => 'required|email|unique:users,email',
+            'phone' => 'required|numeric',
             'gender' => 'required',
             'date_of_birth' => 'required',
             'nid' => 'string|numeric|unique:users,nid',
