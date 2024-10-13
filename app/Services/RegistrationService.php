@@ -57,6 +57,8 @@ class RegistrationService
 
     public function registrationProcess(object $request)
     {
+        date_default_timezone_set(env('APP_TIMEZONE'));
+
         $data = $request->validated();
 
         $data['scheduled_date'] = $this->getScheduleDate($request->vaccine_center_id);

@@ -8,7 +8,7 @@
 ### Packages 
 - #### [Artisan View](https://github.com/svenluijten/artisan-view)
 - #### [Laravel Pint](https://github.com/laravel/pint)
-- #### [PHP Strom](https://pestphp.com)
+- #### [PEST Framework](https://pestphp.com)
 
 
 
@@ -36,6 +36,11 @@ composer update
 php artisan key:generate
 ```
 
+### Queue Table
+```bash
+php artisan queue:table
+```
+
 ### Migrate 
 <h5>Just run this command</h5>
 
@@ -53,3 +58,24 @@ php artisan db:seed
 ```bash
 php artisan serve
 ```
+
+### Runnig Queue before send email 
+```bash
+php artisan queue:work
+```
+
+<!-- ### Alternatively, you may run the queue:listen command.
+```bash
+php artisan queue:listen
+``` -->
+
+### To Test CORN JOB 
+```bash
+php artisan reminder:send
+```
+
+
+
+
+## Test Case Result 
+
