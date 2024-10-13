@@ -22,6 +22,6 @@ class SearchController extends Controller
 
         $vaccineStatus = $searchService->getVaccineStatus($isExitstsData, $scheduledDate);
 
-        return view('pages.search', compact('userData','vaccineStatus'));
+        return view('pages.search', compact('userData', 'vaccineStatus'));
     }
 }

@@ -3,13 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\VaccineRegistrationRequest;
-use App\Jobs\SendVaccineReminderJob;
-use App\Models\User;
-use App\Notifications\VaccineReminderNotification;
 use App\Services\RegistrationService;
 use App\Services\VaccinationScheduleService;
 use App\Traits\MessageTrait;
-use Carbon\Carbon;
 use Exception;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
@@ -22,7 +18,7 @@ class VaccineRegistrationController extends Controller
     {
         $vaccinationScheduleService->schedules();
 
-        $vaccineCenters = Cache::remember('vaccineCenters', 3600, function () use($registrationService) {
+        $vaccineCenters = Cache::remember('vaccineCenters', 3600, function () use ($registrationService) {
             return $registrationService->getAllVaccineCenterData();
         });
 

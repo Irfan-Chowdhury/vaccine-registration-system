@@ -7,34 +7,28 @@ use Carbon\Carbon;
 
 class SearchService
 {
-    public function show(string $nid): object | null
+    public function show(string $nid): ?object
     {
-        return User::select('id','name','email','nid','vaccine_status','scheduled_date','vaccine_center_id')
-                    ->with('vaccineCenter:id,name')
-                    ->where('nid', $nid)->first();
+        return User::select('id', 'name', 'email', 'nid', 'vaccine_status', 'scheduled_date', 'vaccine_center_id')
+            ->with('vaccineCenter:id,name')
+            ->where('nid', $nid)->first();
     }
 
-    public function getVaccineStatus(bool $isExitstsData, string|null $scheduledDate) : string
+    public function getVaccineStatus(bool $isExitstsData, ?string $scheduledDate): string
     {
-        if(!$isExitstsData)
+        if (! $isExitstsData) {
             return 'Not registered';
+        }
 
         $scheduledDate = Carbon::parse($scheduledDate);
         $currentDate = Carbon::now();
 
-        if ($isExitstsData && !$scheduledDate)
+        if ($isExitstsData && ! $scheduledDate) {
             return 'Not scheduled';
-        elseif ($scheduledDate && $scheduledDate->lt($currentDate))
+        } elseif ($scheduledDate && $scheduledDate->lt($currentDate)) {
             return 'Vaccinated';
+        }
 
         return 'Scheduled';
     }
-
-    
 }
-
-
-
-
-
-
